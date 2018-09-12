@@ -83,9 +83,9 @@ public class AndroidReqeustRegisterAndLoginController {
 			Users user = usersService.getUserInfo(userId, password);
 			
 			Map<String, Object> result = new HashMap<String, Object>();
-			result.put("useriI", userId);
+			result.put("userId", userId);
 			result.put("password", user.getPassword());
-			result.put("username", user.getUserName());
+			result.put("userName", user.getUserName());
 			result.put("role", user.getRole());
 			result.put("tel", user.getTel());
 			
