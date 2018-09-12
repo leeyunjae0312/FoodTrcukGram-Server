@@ -42,9 +42,6 @@ public class SellerRequestController {
 		menuList = (ArrayList<MenuInfo>) menuService.getMenuList(foodTruckInfo.getStoreName());
 		foodTruckInfo.setMenuList(menuList);
 		
-		//Map<String, String> result = new HashMap<String, String>();
-		//return result;
-		
 		return new ResponseEntity<FoodTruckInfo>(foodTruckInfo, HttpStatus.OK);
 
 		
