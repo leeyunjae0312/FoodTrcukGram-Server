@@ -2,6 +2,7 @@ package kr.ac.hansung.service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,4 +23,13 @@ public class FoodTruckService{
 	public List<FoodTruckInfo> getFoodTruckInfoList() {
 		return foodTruckDao.getFoodTruckInfoList();
 	}
+
+	public boolean updateFoodTruckLocationAndOpen(Map<String, Object> param) {
+		return foodTruckDao.updateFoodTruckLocationAndOpen(param);
+	}
+
+	public boolean updateFoodTruckClose(Map<String, Object> param) {
+		return foodTruckDao.updateFoodTruckClose(param);
+	}
+
 }

@@ -3,6 +3,7 @@ package kr.ac.hansung.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -69,5 +70,19 @@ public class FoodTruckDAO {
 
 		});
 	}
+
+	public boolean updateFoodTruckLocationAndOpen(Map<String, Object> param) {
+		String sqlStatement = "update foodtruckinfo_tbl set longitude = ?, latitude = ?, isOpen = ? where storeName = ?";
+
+
+		return (jdbcTemplate.update(sqlStatement, new Object[] { param.get("longitude"), param.get("latitude"), param.get("isOpen"), param.get("storeName") }) == 1);
+	}
+
+	public boolean updateFoodTruckClose(Map<String, Object> param) {
+		String sqlStatement = "update foodtruckinfo_tbl set isOpen = ? where storeName = ?";
+
+		return (jdbcTemplate.update(sqlStatement, new Object[] { param.get("isOpen"), param.get("storeName") }) == 1);
+	}
+
 	
 }

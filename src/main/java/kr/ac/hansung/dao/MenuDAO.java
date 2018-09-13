@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -44,6 +45,24 @@ public class MenuDAO {
 			}
 
 		});
+	}
+
+	public boolean updateMenu(Map<String, Object> param) {
+		String sqlStatement = "update menuinfo_tbl set menuImage = ?, menuPrice = ?, menuIntroduce = ?, soldOut = ? where storeName = ? and menuName = ?";
+
+		return (jdbcTemplate.update(sqlStatement, new Object[] { param.get("menuImage"), param.get("menuPrice"),  param.get("menuIntroduce"),  param.get("soldOut"),  param.get("storeName"),  param.get("menuName") }) == 1);
+	}
+
+	public boolean insertMenu(Map<String, Object> param) {
+		String sqlStatement = "insert into menuinfo_tbl (menuName, menuImage, menuPrice, menuIntroduce, soldOut, storeName) values(?,?,?,?,?,?)";
+
+		return (jdbcTemplate.update(sqlStatement, new Object[] { param.get("menuName"), param.get("menuImage"), param.get("menuPrice"),  param.get("menuIntroduce"),  param.get("soldOut"),  param.get("storeName") }) == 1);
+	}
+
+	public boolean deleteMenu(Map<String, Object> param) {
+		String sqlStatement = "delete from menuinfo_tbl where menuName = ? and storeName = ?";
+
+		return (jdbcTemplate.update(sqlStatement, new Object[] { param.get("menuName"), param.get("storeName") }) == 1);
 	}
 	
 	
