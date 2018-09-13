@@ -39,7 +39,6 @@ public class MenuDAO {
 				menu.setMenuIntroduce(rs.getString("menuIntroduce"));
 				menu.setMenuName(rs.getString("menuName"));
 				menu.setMenuPrice(rs.getString("menuPrice"));
-				menu.setSoldOut(rs.getBoolean("soldOut"));
 
 				return menu;
 			}
@@ -48,15 +47,15 @@ public class MenuDAO {
 	}
 
 	public boolean updateMenu(Map<String, Object> param) {
-		String sqlStatement = "update menuinfo_tbl set menuImage = ?, menuPrice = ?, menuIntroduce = ?, soldOut = ? where storeName = ? and menuName = ?";
+		String sqlStatement = "update menuinfo_tbl set menuImage = ?, menuPrice = ?, menuIntroduce = ? where storeName = ? and menuName = ?";
 
-		return (jdbcTemplate.update(sqlStatement, new Object[] { param.get("menuImage"), param.get("menuPrice"),  param.get("menuIntroduce"),  param.get("soldOut"),  param.get("storeName"),  param.get("menuName") }) == 1);
+		return (jdbcTemplate.update(sqlStatement, new Object[] { param.get("menuImage"), param.get("menuPrice"),  param.get("menuIntroduce"), param.get("storeName"),  param.get("menuName") }) == 1);
 	}
 
 	public boolean insertMenu(Map<String, Object> param) {
-		String sqlStatement = "insert into menuinfo_tbl (menuName, menuImage, menuPrice, menuIntroduce, soldOut, storeName) values(?,?,?,?,?,?)";
+		String sqlStatement = "insert into menuinfo_tbl (menuName, menuImage, menuPrice, menuIntroduce, storeName) values(?,?,?,?,?)";
 
-		return (jdbcTemplate.update(sqlStatement, new Object[] { param.get("menuName"), param.get("menuImage"), param.get("menuPrice"),  param.get("menuIntroduce"),  param.get("soldOut"),  param.get("storeName") }) == 1);
+		return (jdbcTemplate.update(sqlStatement, new Object[] { param.get("menuName"), param.get("menuImage"), param.get("menuPrice"),  param.get("menuIntroduce"), param.get("storeName") }) == 1);
 	}
 
 	public boolean deleteMenu(Map<String, Object> param) {

@@ -2,6 +2,7 @@ package kr.ac.hansung.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kr.ac.hansung.model.FoodTruckInfo;
 import kr.ac.hansung.model.MenuInfo;
+import kr.ac.hansung.model.ReviewInfo;
 import kr.ac.hansung.service.FoodTruckService;
 import kr.ac.hansung.service.MenuService;
+import kr.ac.hansung.service.ReviewService;
 
 @RestController
 @RequestMapping("/foodtruckgram/s")
@@ -28,6 +31,9 @@ public class SellerRequestController {
 	
 	@Autowired
 	private MenuService menuService;
+	
+	@Autowired
+	private ReviewService reviewService;
 
 	@RequestMapping("/getFoodTruckInfoByStoreName")
 	public Object getFoodTruckInfoByStoreName(HttpServletRequest request) {
@@ -99,19 +105,15 @@ public class SellerRequestController {
 		
 		String menuName = request.getParameter("menuName");
 		String menuImage = request.getParameter("menuImage");
+		String menuIntroduce = request.getParameter("menuIntroduce");
 		String menuPrice = request.getParameter("menuPrice");
-		String soldOut_s = request.getParameter("soldOut");
 		String storeName = request.getParameter("storeName");
-		boolean soldOut = false;
-		if(soldOut_s.equals("1")) {
-			soldOut = true;
-		}
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("menuName", menuName);
 		param.put("menuImage", menuImage);
+		param.put("menuIntroduce", menuIntroduce);
 		param.put("menuPrice", menuPrice);
-		param.put("soldOut", soldOut);
 		param.put("storeName", storeName);
 		
 		boolean check = menuService.updateMenu(param);
@@ -130,19 +132,15 @@ public class SellerRequestController {
 		
 		String menuName = request.getParameter("menuName");
 		String menuImage = request.getParameter("menuImage");
+		String menuIntroduce = request.getParameter("menuIntroduce");
 		String menuPrice = request.getParameter("menuPrice");
-		String soldOut_s = request.getParameter("soldOut");
 		String storeName = request.getParameter("storeName");
-		boolean soldOut = false;
-		if(soldOut_s.equals("1")) {
-			soldOut = true;
-		}
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("menuName", menuName);
 		param.put("menuImage", menuImage);
+		param.put("menuIntroduce", menuIntroduce);
 		param.put("menuPrice", menuPrice);
-		param.put("soldOut", soldOut);
 		param.put("storeName", storeName);
 		
 		boolean check = menuService.insertMenu(param);
@@ -173,6 +171,25 @@ public class SellerRequestController {
 		}
 		else {
 			return new ResponseEntity<Void>(HttpStatus.FORBIDDEN);
+		}
+		
+	}
+	
+	@RequestMapping("/getReview")
+	public ResponseEntity<List<ReviewInfo>> getReview(HttpServletRequest request) {
+		
+		String storeName = request.getParameter("storeName");
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("storeName", storeName);
+		
+		List<ReviewInfo> infos = reviewService.getReview(param);
+
+		if(infos != null) {
+			return new ResponseEntity<List<ReviewInfo>>(infos, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<List<ReviewInfo>>(infos, HttpStatus.FORBIDDEN);
 		}
 		
 	}
