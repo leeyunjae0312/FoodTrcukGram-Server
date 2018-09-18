@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.ac.hansung.model.MenuInfo;
 import kr.ac.hansung.model.ReviewInfo;
 
 @Repository
+@Transactional
 public class ReviewDAO {
 
 	private JdbcTemplate jdbcTemplate;
@@ -38,6 +40,7 @@ public class ReviewDAO {
 				review.setUserName(rs.getString("userName"));
 				review.setReview(rs.getString("review"));
 				review.setDate(rs.getDate("date"));
+				System.out.println("//////////////" + rs.getDate("date"));
 
 				return review;
 			}

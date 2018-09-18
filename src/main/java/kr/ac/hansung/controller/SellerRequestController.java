@@ -1,10 +1,12 @@
 package kr.ac.hansung.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +14,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.ac.hansung.model.FoodTruckInfo;
 import kr.ac.hansung.model.MenuInfo;
@@ -127,17 +133,19 @@ public class SellerRequestController {
 		
 	}
 	
-	@RequestMapping("/insertMenu")
-	public Object insertMenu(HttpServletRequest request) {
+	@RequestMapping(value="/insertMenu", method = RequestMethod.POST)
+	public Object insertMenu(HttpServletRequest request, @RequestParam("menuImage") String menuImage) {
 		
 		String menuName = request.getParameter("menuName");
-		String menuImage = request.getParameter("menuImage");
+		//String menuImage = request.getParameter("menuImage");
 		String menuIntroduce = request.getParameter("menuIntroduce");
 		String menuPrice = request.getParameter("menuPrice");
 		String storeName = request.getParameter("storeName");
 		
+		menuImage = menuImage.replaceAll(" ", "+");
+		
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("menuName", menuName);
+		param.put("menuName", menuName); 
 		param.put("menuImage", menuImage);
 		param.put("menuIntroduce", menuIntroduce);
 		param.put("menuPrice", menuPrice);
@@ -193,4 +201,5 @@ public class SellerRequestController {
 		}
 		
 	}
+	
 }
