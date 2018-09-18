@@ -18,4 +18,8 @@ public class ReviewService {
 	public List<ReviewInfo> getReview(Map<String, Object> param) {
 		return reviewDao.getReview(param);
 	}
+
+	public boolean insertReview(Map<String, Object> param) {
+		return reviewDao.insertReview(param);
+	}
 }

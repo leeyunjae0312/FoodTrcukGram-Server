@@ -16,8 +16,8 @@ public class FoodTruckService{
 	@Autowired
 	private FoodTruckDAO foodTruckDao;
 
-	public FoodTruckInfo getFoodTruckInfoByStoreName(String ownerId) {
-		return foodTruckDao.getFoodTruckInfoByStoreName(ownerId);
+	public FoodTruckInfo getFoodTruckInfoByOwnerId(String ownerId) {
+		return foodTruckDao.getFoodTruckInfoByOwnerId(ownerId);
 	}
 
 	public List<FoodTruckInfo> getFoodTruckInfoList() {
@@ -30,6 +30,10 @@ public class FoodTruckService{
 
 	public boolean updateFoodTruckClose(Map<String, Object> param) {
 		return foodTruckDao.updateFoodTruckClose(param);
+	}
+
+	public FoodTruckInfo getFoodTruckInfoByStoreName(String storeName) {
+		return foodTruckDao.getFoodTruckInfoByStoreName(storeName);
 	}
 
 }

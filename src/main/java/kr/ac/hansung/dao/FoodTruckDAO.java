@@ -27,7 +27,7 @@ public class FoodTruckDAO {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	public FoodTruckInfo getFoodTruckInfoByStoreName(String ownerId) {
+	public FoodTruckInfo getFoodTruckInfoByOwnerId(String ownerId) {
 		String sqlStatement = "select * from foodtruckinfo_tbl where ownerId=?";
 		return jdbcTemplate.queryForObject(sqlStatement, new Object[] { ownerId }, new RowMapper<FoodTruckInfo>() {
 
@@ -39,7 +39,7 @@ public class FoodTruckDAO {
 				foodtruck.setStoreName(rs.getString("storeName"));
 				foodtruck.setOwnerName(rs.getString("ownerName"));
 				foodtruck.setOwnerId(rs.getString("ownerId"));
-				foodtruck.setOpen(rs.getBoolean("isOpen"));
+				foodtruck.setIsOpen(rs.getString("isOpen"));
 				foodtruck.setLongitude(rs.getDouble("longitude"));
 				foodtruck.setLatitude(rs.getDouble("latitude"));
 				
@@ -63,7 +63,7 @@ public class FoodTruckDAO {
 				foodtruck.setStoreName(rs.getString("storeName"));
 				foodtruck.setOwnerName(rs.getString("ownerName"));
 				foodtruck.setOwnerId(rs.getString("ownerId"));
-				foodtruck.setOpen(rs.getBoolean("isOpen"));
+				foodtruck.setIsOpen(rs.getString("isOpen"));
 				foodtruck.setLongitude(rs.getDouble("longitude"));
 				foodtruck.setLatitude(rs.getDouble("latitude"));
 				
@@ -84,6 +84,30 @@ public class FoodTruckDAO {
 		String sqlStatement = "update foodtruckinfo_tbl set isOpen = ? where storeName = ?";
 
 		return (jdbcTemplate.update(sqlStatement, new Object[] { param.get("isOpen"), param.get("storeName") }) == 1);
+	}
+
+	public FoodTruckInfo getFoodTruckInfoByStoreName(String storeName) {
+		String sqlStatement = "select * from foodtruckinfo_tbl where storeName=?";
+		return jdbcTemplate.queryForObject(sqlStatement, new Object[] { storeName }, new RowMapper<FoodTruckInfo>() {
+
+			@Override
+			public FoodTruckInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+				FoodTruckInfo foodtruck = new FoodTruckInfo();
+
+				foodtruck.setStoreName(rs.getString("storeName"));
+				foodtruck.setOwnerName(rs.getString("ownerName"));
+				foodtruck.setOwnerId(rs.getString("ownerId"));
+				foodtruck.setIsOpen(rs.getString("isOpen"));
+				foodtruck.setLongitude(rs.getDouble("longitude"));
+				foodtruck.setLatitude(rs.getDouble("latitude"));
+				
+				
+				return foodtruck;
+
+			}
+
+		});
 	}
 
 	

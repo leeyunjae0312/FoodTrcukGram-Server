@@ -21,6 +21,6 @@ public class FoodTruckInfo implements Serializable{
 	
 	private String storeName, ownerId, ownerName;
     private double longitude,latitude;
-    private boolean isOpen;
+    private String isOpen;
     private ArrayList<MenuInfo> menuList;
 }

@@ -23,9 +23,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.ac.hansung.model.FoodTruckInfo;
 import kr.ac.hansung.model.MenuInfo;
+import kr.ac.hansung.model.OrderInfo;
 import kr.ac.hansung.model.ReviewInfo;
 import kr.ac.hansung.service.FoodTruckService;
 import kr.ac.hansung.service.MenuService;
+import kr.ac.hansung.service.OrderService;
 import kr.ac.hansung.service.ReviewService;
 
 @RestController
@@ -40,6 +42,9 @@ public class SellerRequestController {
 	
 	@Autowired
 	private ReviewService reviewService;
+	
+	@Autowired
+	private OrderService orderService;
 
 	@RequestMapping("/getFoodTruckInfoByStoreName")
 	public Object getFoodTruckInfoByStoreName(HttpServletRequest request) {
@@ -48,7 +53,7 @@ public class SellerRequestController {
 		
 		FoodTruckInfo foodTruckInfo = new FoodTruckInfo();
 		
-		foodTruckInfo = foodTruckService.getFoodTruckInfoByStoreName(ownerId);
+		foodTruckInfo = foodTruckService.getFoodTruckInfoByOwnerId(ownerId);
 		
 		ArrayList<MenuInfo> menuList;
 		menuList = (ArrayList<MenuInfo>) menuService.getMenuList(foodTruckInfo.getStoreName());
@@ -202,4 +207,50 @@ public class SellerRequestController {
 		
 	}
 	
+	@RequestMapping("/getOrderListByStoreName")
+	public ResponseEntity<List<OrderInfo>> getOrderListByStoreName(HttpServletRequest request) {
+		
+		String storeName = request.getParameter("storeName");
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("storeName", storeName);
+		
+		List<OrderInfo> infos = orderService.getOrderListByStoreName(param);
+		
+		for(OrderInfo info : infos) {
+			List<MenuInfo> menuInfos = menuService.getMenuList(storeName);
+			info.setMenuInfos(menuInfos);
+		}
+
+		if(infos != null) {
+			return new ResponseEntity<List<OrderInfo>>(infos, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<List<OrderInfo>>(infos, HttpStatus.FORBIDDEN);
+		}
+		
+	}
+	
+	@RequestMapping("/deleteOrder")
+	public Object deleteOrder(HttpServletRequest request) {
+		
+		String userId = request.getParameter("userId");
+		String storeName = request.getParameter("storeName");
+		String menuName = request.getParameter("menuName");
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("userId", userId);
+		param.put("storeName", storeName);
+		param.put("menuName", menuName);
+		
+		boolean check = orderService.deleteOrder(param);
+
+		if(check) {
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<Void>(HttpStatus.FORBIDDEN);
+		}
+		
+	}
 }

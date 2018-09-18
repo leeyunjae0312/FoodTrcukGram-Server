@@ -48,4 +48,10 @@ public class ReviewDAO {
 		});
 	}
 
+	public boolean insertReview(Map<String, Object> param) {
+		String sqlStatement = "insert into review_tbl (storeName, userName, date, review) values(?,?,?,?)";
+
+		return (jdbcTemplate.update(sqlStatement, new Object[] { param.get("storeName"), param.get("userName"), param.get("date"),  param.get("review") }) == 1);
+	}
+
 }
