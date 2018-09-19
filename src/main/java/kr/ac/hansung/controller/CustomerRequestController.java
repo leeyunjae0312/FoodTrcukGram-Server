@@ -62,12 +62,13 @@ public class CustomerRequestController {
 	}
 
 	@RequestMapping("/insertFavoriteStore")
-	public Object insertFavoriateStore(HttpServletRequest request) {
+	public Map<String, String> insertFavoriateStore(HttpServletRequest request) {
 
 		String userId = request.getParameter("userId");
 		String storeName = request.getParameter("storeName");
 		boolean check = false;
 		boolean chick = false;
+		Map<String, String> result = new HashMap<String, String>();
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("userId", userId);
@@ -81,6 +82,7 @@ public class CustomerRequestController {
 			if(favoriteInfo != null) {
 				if(favoriteService.deleteFavorite(param)) {
 					chick = true;
+					result.put("favorite", "NO");
 					System.out.println("delete favorite");
 				}
 				else {
@@ -94,14 +96,11 @@ public class CustomerRequestController {
 		if(!chick) {
 			System.out.println("insert favorite");
 			check = favoriteService.insertFavoriate(param);
+			result.put("favorite", "YES");
 		}
 		
 
-		if (check) {
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		} else {
-			return new ResponseEntity<Void>(HttpStatus.FORBIDDEN);
-		}
+		return result;
 
 	}
 	
@@ -144,6 +143,9 @@ public class CustomerRequestController {
 		List<FoodTruckInfo> foodTruckInfos = new ArrayList<>();
 		for(FavoriteInfo info : favoriateInfos) {
 			FoodTruckInfo foodTruckInfo = foodTruckService.getFoodTruckInfoByStoreName(info.getStoreName());
+			ArrayList<MenuInfo> menuList;
+			menuList = (ArrayList<MenuInfo>) menuService.getMenuList(info.getStoreName());
+			foodTruckInfo.setMenuList(menuList);
 			foodTruckInfos.add(foodTruckInfo);
 		}
 
