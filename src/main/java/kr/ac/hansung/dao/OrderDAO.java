@@ -39,7 +39,7 @@ public class OrderDAO {
 				orderInfo.setStoreName(rs.getString("storeName"));
 				orderInfo.setMenuName(rs.getString("menuName"));
 				orderInfo.setTel(rs.getString("tel"));
-				orderInfo.setPrice(rs.getInt("price"));
+				orderInfo.setPrice(rs.getString("price"));
 				orderInfo.setDate(rs.getDate("date"));
 				orderInfo.setUserId(rs.getString("userId"));
 
@@ -74,7 +74,7 @@ public class OrderDAO {
 				orderInfo.setStoreName(rs.getString("storeName"));
 				orderInfo.setMenuName(rs.getString("menuName"));
 				orderInfo.setTel(rs.getString("tel"));
-				orderInfo.setPrice(rs.getInt("price"));
+				orderInfo.setPrice(rs.getString("price"));
 				orderInfo.setDate(rs.getDate("date"));
 				orderInfo.setUserId(rs.getString("userId"));
 

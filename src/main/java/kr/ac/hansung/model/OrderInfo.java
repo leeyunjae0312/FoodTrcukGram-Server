@@ -18,7 +18,7 @@ public class OrderInfo {
 	String menuName;
 	String tel;
 	Date date;
-	int price;
+	String price;
 	String userId;
 	List<MenuInfo> menuInfos;
 }
