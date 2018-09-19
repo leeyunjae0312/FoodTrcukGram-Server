@@ -18,6 +18,7 @@ import kr.ac.hansung.model.FavoriteInfo;
 import kr.ac.hansung.model.FoodTruckInfo;
 import kr.ac.hansung.model.MenuInfo;
 import kr.ac.hansung.model.OrderInfo;
+import kr.ac.hansung.model.ReviewInfo;
 import kr.ac.hansung.service.FavoriteService;
 import kr.ac.hansung.service.FoodTruckService;
 import kr.ac.hansung.service.MenuService;
@@ -191,5 +192,24 @@ public class CustomerRequestController {
 
 		return new ResponseEntity<List<OrderInfo>>(orderInfos, HttpStatus.OK);
 
+	}
+	
+	@RequestMapping("/getReview")
+	public ResponseEntity<List<ReviewInfo>> getReview(HttpServletRequest request) {
+		
+		String storeName = request.getParameter("storeName");
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("storeName", storeName);
+		
+		List<ReviewInfo> infos = reviewService.getReview(param);
+
+		if(infos != null) {
+			return new ResponseEntity<List<ReviewInfo>>(infos, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<List<ReviewInfo>>(infos, HttpStatus.FORBIDDEN);
+		}
+		
 	}
 }

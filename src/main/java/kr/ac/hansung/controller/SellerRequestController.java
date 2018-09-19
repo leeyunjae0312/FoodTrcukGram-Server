@@ -78,7 +78,7 @@ public class SellerRequestController {
 		param.put("storeName", storeName);
 		param.put("longitude", longitude);
 		param.put("latitude", latitude);
-		param.put("isOpen", 1);
+		param.put("isOpen", true);
 		
 		boolean check = foodTruckService.updateFoodTruckLocationAndOpen(param);
 
@@ -98,7 +98,7 @@ public class SellerRequestController {
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("storeName", storeName);
-		param.put("isOpen", 0);
+		param.put("isOpen", false);
 		
 		boolean check = foodTruckService.updateFoodTruckClose(param);
 
