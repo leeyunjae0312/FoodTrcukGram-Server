@@ -49,6 +49,7 @@ public class MenuDAO {
 	}
 
 	public boolean updateMenu(Map<String, Object> param) {
+		System.out.println("+++"+param.get("menuImage"));
 		String sqlStatement = "update menuinfo_tbl set menuImage = ?, menuPrice = ?, menuIntroduce = ? where storeName = ? and menuName = ?";
 
 		return (jdbcTemplate.update(sqlStatement, new Object[] { param.get("menuImage"), param.get("menuPrice"),  param.get("menuIntroduce"), param.get("storeName"),  param.get("menuName") }) == 1);
