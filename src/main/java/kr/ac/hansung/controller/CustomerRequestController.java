@@ -1,5 +1,6 @@
 package kr.ac.hansung.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -190,6 +191,12 @@ public class CustomerRequestController {
 		param.put("userId", userId);
 
 		List<OrderInfo> orderInfos = orderService.getOrderListByUserId(param);
+		
+//		System.out.println("Date = " + orderInfos.get(0).getDate());
+//		
+//		SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//	    String new_date = date_format.format(orderInfos.get(0).getDate());
+//	    System.out.println("new_date = " + new_date);
 		
 
 		return new ResponseEntity<List<OrderInfo>>(orderInfos, HttpStatus.OK);

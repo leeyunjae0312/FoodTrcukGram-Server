@@ -40,7 +40,6 @@ public class ReviewDAO {
 				review.setUserName(rs.getString("userName"));
 				review.setReview(rs.getString("review"));
 				review.setDate(rs.getDate("date"));
-				System.out.println("//////////////" + rs.getDate("date"));
 
 				return review;
 			}
