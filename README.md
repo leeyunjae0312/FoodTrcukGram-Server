@@ -1,5 +1,7 @@
 # FoodTruckGram-Server
 
+-> 서버는 아마존에 올라가있으므로 따로 설치하지 않으셔도 됩니다.
+
 ## FoodTruckGram
 FoodTruckGram은 서울시에 있는 모든 푸드트럭들의 위치와 경로안내, 메뉴를 보여주며 판매자버전과 소비자버전이 따로있는 푸드트럭의 판매자와 소비자가 의사소통할 수 있는 sns이다. 자세한건 [Wiki](https://github.com/leeyunjae0312/FoodTruckGram-Client/wiki#%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%B0%B0%EA%B2%BD) 참조
 
